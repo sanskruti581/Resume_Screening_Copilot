@@ -23,16 +23,15 @@ except ImportError:  # pragma: no cover - groq is declared in requirements
 from openai import APIStatusError, NotFoundError, OpenAI
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
-DEFAULT_MODEL = "qwen/qwen3.8-27b"
-FALLBACK_MODEL = "openai/gpt-oss-120b"
+DEFAULT_MODEL = "llama-3.3-70b-versatile"
+FALLBACK_MODEL = "llama-3.1-8b-instant"
 
 AVAILABLE_MODELS = [
+    "llama-3.3-70b-versatile",
+    "llama-3.1-8b-instant",
+    "mixtral-8x7b-32768",
+    "gemma2-9b-it",
     "qwen/qwen3.8-27b",
-    "qwen/qwen3.6-27b",
-    "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
-    "groq/compound-mini",
-    "groq/compound",
 ]
 
 VALID_RECOMMENDATIONS = ("Shortlist", "Hold", "Reject")
@@ -47,8 +46,6 @@ def normalize_model_choice(model: str) -> str:
     cleaned = (model or "").strip()
     if cleaned in AVAILABLE_MODELS:
         return cleaned
-    if re.fullmatch(r"qwen/qwen3\.[0-7]-27b", cleaned):
-        return DEFAULT_MODEL
     return DEFAULT_MODEL
 
 
